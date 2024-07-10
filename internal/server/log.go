@@ -6,12 +6,12 @@ import (
 )
 
 type Record struct {
-	Value []byte `json:"value"`
+	Value  []byte `json:"value"`
 	Offset uint64 `json:"offset"`
 }
 
 type Log struct {
-	mu sync.Mutex
+	mu      sync.Mutex
 	records []Record
 }
 
@@ -22,6 +22,10 @@ func NewLog() *Log {
 }
 
 func (l *Log) Append(record Record) (uint64, error) {
+	if l == nil {
+		return 0, fmt.Errorf("log is nil")
+	}
+
 	l.mu.Lock()
 	defer l.mu.Unlock()
 
@@ -31,6 +35,10 @@ func (l *Log) Append(record Record) (uint64, error) {
 }
 
 func (l *Log) Read(offset uint64) (Record, error) {
+	if l == nil {
+		return Record{}, fmt.Errorf("log is nil")
+	}
+
 	l.mu.Lock()
 	defer l.mu.Unlock()
 
@@ -40,4 +48,3 @@ func (l *Log) Read(offset uint64) (Record, error) {
 
 	return l.records[offset], nil
 }
-
