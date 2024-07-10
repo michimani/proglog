@@ -13,7 +13,7 @@ func NewHTTPServer(addr string) *http.Server {
 	mux.HandleFunc("GET /", httpsrv.handleConsume)
 
 	return &http.Server{
-		Addr: addr,
+		Addr:    addr,
 		Handler: mux,
 	}
 }
@@ -44,7 +44,7 @@ type ConsumeResponse struct {
 	Record Record `json:"record"`
 }
 
-func (s *httpServer) handleProduce (w http.ResponseWriter, r *http.Request) {
+func (s *httpServer) handleProduce(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	var req ProduceRequest
@@ -68,7 +68,7 @@ func (s *httpServer) handleProduce (w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (s *httpServer) handleConsume (w http.ResponseWriter, r *http.Request) {
+func (s *httpServer) handleConsume(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	var req ConsumeRequest

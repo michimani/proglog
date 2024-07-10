@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/michimani/misc/go/proglog/internal/server"
+	"github.com/michimani/proglog/internal/server"
 )
 
 func main() {
