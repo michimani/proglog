@@ -41,17 +41,17 @@ func TestIndex(t *testing.T) {
 		rqir.NoError(err)
 		rqir.Equal(want.Pos, pos)
 
-		_, _, err = idx.Read(int64(len(entries)))
-		rqir.Equal(io.EOF, err)
-		_ = idx.Close()
-
-		f, _ = os.OpenFile(f.Name(), os.O_RDWR, 0600)
-		idx, err = log.Exported_newIndex(f, c)
-		rqir.NoError(err)
-
-		off, pos, err := idx.Read(-1)
-		rqir.NoError(err)
-		rqir.Equal(uint32(1), off)
-		rqir.Equal(entries[1].Pos, pos)
 	}
+	_, _, err = idx.Read(int64(len(entries)))
+	rqir.Equal(io.EOF, err)
+	_ = idx.Close()
+
+	f, _ = os.OpenFile(f.Name(), os.O_RDWR, 0600)
+	idx, err = log.Exported_newIndex(f, c)
+	rqir.NoError(err)
+
+	off, pos, err := idx.Read(-1)
+	rqir.NoError(err)
+	rqir.Equal(uint32(1), off)
+	rqir.Equal(entries[1].Pos, pos)
 }
